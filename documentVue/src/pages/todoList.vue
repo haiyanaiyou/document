@@ -1,12 +1,13 @@
 <template>
     <div>
-        <form v-on:submit.prevent="addTodo">
+        <el-alert title="警告提示的文案" type="warning" center show-icon v-if='isShow' @close='addShow'></el-alert>
+        <form v-on:submit.prevent>
             <label for="new-todo">add a todo</label>
             <input type="text"
                 id="new-todo"
                 v-model="newTodoText"
             >
-            <button>add</button>
+             <button @click="addTodo">add</button>
         </form>
         <ul>
             <li 
@@ -17,6 +18,7 @@
                 v-bind:class="{'textStyle': todo.delText === true}"
             >{{todo.title}}</li>
         </ul>
+        
     </div>
 </template>
 
@@ -25,6 +27,7 @@
         data(){
             return{
                 newTodoText: '',
+                isShow: false,
                 todos: [
                     {
                         id: 1,
@@ -52,30 +55,35 @@
                         id: this.nextTodoId++,
                         title: this.newTodoText
                     })
-                    this.newTodoText = ''
+                    this.newTodoText = '';
+                    this.isShow = false
                     
                 }else{
-                    alert('要输入任务哦~')
-
+                   //alert('输入内容')
+                   this.isShow = true
                 }
                 
             },
             remove: function(index){
                 this.todos[index].delText = true
-                console.log(this.todos[index].delText)
                 //this.todos.splice(index,1)
                 
+            },
+            addShow: function(){
+                console.log(this.isShow)
+                this.isShow = false
             }
+           
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped="" type="text/css">
     ul{
        margin-top: 60px; 
-    }
-    li{
-        margin-bottom: 20px;
+       li{
+            margin-bottom: 20px;
+        }
     }
     .textStyle{
         text-decoration:line-through ;
