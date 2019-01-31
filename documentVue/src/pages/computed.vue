@@ -19,7 +19,7 @@
           -->
 
           <ul>
-              <li v-for = 'n in even(numbers) '>{{ n }}</li>
+              <li v-for = "n in even(numbers)">{{ n }}</li>
           </ul>
     </div>
     
